@@ -1,0 +1,22 @@
+RewriteEngine On  # Bật chế độ rewrite URL của Apache
+
+# Nếu URL đã ở /assets/, không áp dụng quy tắc rewrite (tránh vòng lặp vô hạn)
+RewriteCond %{REQUEST_URI} !^/assets/ [NC]
+
+# Chuyển hướng tất cả các đường dẫn có dạng /.../.../assets/... -> /assets/...
+RewriteRule ^(.*)/(.*)/assets/(.*)$ /assets/$3 [L,R=301]
+
+# Chuyển hướng tất cả các đường dẫn có dạng /.../assets/... -> /assets/...
+RewriteRule ^(.*)/assets/(.*)$ /assets/$2 [L,R=301]
+
+# Chuyển hướng trang chủ về index.php
+RewriteRule ^$ index.php [L,QSA]
+
+# Ẩn đuôi .php (cho phép truy cập file PHP mà không cần nhập .php)
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.+)$ $1.php [L,QSA]
+
+# Nếu URL không phải là file hoặc thư mục thực tế, chuyển hướng về index.php để xử lý
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
