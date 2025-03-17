@@ -8,6 +8,8 @@ $Register = '/login/register.php';
 $Forgot = '/login/forgot-password.php';
 $Logout = '/login/logout.php';
 $UserInfo = '/user/updateInfo.php';
+$AdminQLTK = '/Admin/QLTK/index.php';
+
 
 
 $Address = '73 Nguyễn Huệ, Phường 2, Vĩnh Long, Việt Nam';
