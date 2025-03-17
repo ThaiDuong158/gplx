@@ -20,9 +20,17 @@
           <h5 class="modal-title" id="editModalLabel">Chỉnh Sửa Tài Khoản</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form id="editForm" action="edit.php" method="POST">
+        <form id="editForm" action="edit.php" method="POST" enctype="multipart/form-data">
           <div class="modal-body">
             <input type="hidden" name="id" id="edit-id">
+
+            <!-- Avatar  -->
+            <div class="mb-3 text-center">
+              <label class="form-label d-block">Ảnh Đại Diện</label>
+              <img id="edit-avatar-preview" src="" class="img-thumbnail rounded-circle mb-2" width="100" height="100">
+              <input type="file" class="form-control" name="avatar" id="edit-avatar">
+            </div>
+
             <div class="mb-3">
               <label class="form-label">Tài Khoản</label>
               <input type="text" class="form-control" name="username" id="edit-username" required>
@@ -36,10 +44,21 @@
               <input type="email" class="form-control" name="email" id="edit-email" required>
             </div>
             <div class="mb-3">
+              <label class="form-label">Số Điện Thoại</label>
+              <input type="text" class="form-control" name="sdt" id="edit-sdt" required>
+            </div>
+
+            <!-- Chọn Vai Trò -->
+            <div class="mb-3">
               <label class="form-label">Vai Trò</label>
-              <input type="text" class="form-control" name="quyen" id="edit-quyen" disabled>
+              <select class="form-control" name="quyen" id="edit-quyen">
+                <option value="1">Quản trị viên</option>
+                <option value="2">Người dùng</option>
+                <option value="3">Khách</option>
+              </select>
             </div>
           </div>
+
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
             <button type="submit" class="btn btn-primary">Lưu</button>
@@ -70,7 +89,6 @@
       </div>
     </div>
   </div>
-
 
   <main id="main" class="main">
     <div class="pagetitle">
@@ -128,10 +146,12 @@
                                 <td>
                                     <button class='btn btn-primary btn-sm edit-btn' 
                                       data-id='{$row['IDNGUOIDUNG']}' 
+                                      data-avatar='{$row['AVATAR']}' 
                                       data-username='{$row['USERNAME']}' 
                                       data-ho='{$row['HO']}' 
                                       data-ten='{$row['TEN']}' 
                                       data-email='{$row['EMAIL']}' 
+                                      data-sdt='{$row['SDT']}' 
                                       data-quyen='{$row['TENQUYEN']}'>Sửa</button>
 
                                     <button class='btn btn-danger btn-sm delete-btn' 
@@ -186,13 +206,23 @@
         let ho = $(this).data("ho");
         let ten = $(this).data("ten");
         let email = $(this).data("email");
+        let sdt = $(this).data("sdt");
         let quyen = $(this).data("quyen");
+        var avatar = $(this).data("avatar");
 
         $("#edit-id").val(id);
         $("#edit-username").val(username);
         $("#edit-hoten").val(ho + " " + ten);
         $("#edit-email").val(email);
+        $("#edit-sdt").val(sdt);
         $("#edit-quyen").val(quyen);
+
+        // Cập nhật ảnh đại diện
+        if (avatar) {
+          $("#edit-avatar-preview").attr("src", `assets/img/avartar/${id}/${avatar}`);
+        } else {
+          $("#edit-avatar-preview").attr("src", "assets/img/hero-logo.png");
+        }
 
         $("#editModal").modal("show");
       });
