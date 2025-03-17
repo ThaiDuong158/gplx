@@ -26,16 +26,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             mkdir($target_dir, 0777, true); // Tạo thư mục nếu chưa tồn tại
         }
 
-        $avatar_name = basename($_FILES["avatar"]["name"]);
-        $avatar_path = $target_dir . $avatar_name;
-        $imageFileType = strtolower(pathinfo($avatar_path, PATHINFO_EXTENSION));
+        // Lấy ảnh cũ từ database
+        $sql_old_avatar = "SELECT AVATAR FROM nguoidung WHERE IDNGUOIDUNG = ?";
+        $stmt_old = $conn->prepare($sql_old_avatar);
+        $stmt_old->bind_param("i", $id);
+        $stmt_old->execute();
+        $stmt_old->bind_result($old_avatar);
+        $stmt_old->fetch();
+        $stmt_old->close();
 
-        // Kiểm tra định dạng ảnh
+        // Xóa ảnh cũ nếu tồn tại
+        if (!empty($old_avatar) && file_exists($target_dir . $old_avatar)) {
+            unlink($target_dir . $old_avatar);
+        }
+
+        // Lấy phần mở rộng của ảnh
+        $imageFileType = strtolower(pathinfo($_FILES["avatar"]["name"], PATHINFO_EXTENSION));
+
+        // Kiểm tra định dạng ảnh hợp lệ
         $allowed_types = ["jpg", "jpeg", "png", "gif"];
         if (!in_array($imageFileType, $allowed_types)) {
             echo "<script>alert('Chỉ chấp nhận định dạng JPG, JPEG, PNG, GIF!');</script>";
             exit();
         }
+
+        // Tạo tên ảnh ngẫu nhiên
+        $avatar_name = $id . "_" . time() . "." . $imageFileType;
+        $avatar_path = $target_dir . $avatar_name;
 
         // Di chuyển file ảnh tải lên
         if (move_uploaded_file($_FILES["avatar"]["tmp_name"], $avatar_path)) {

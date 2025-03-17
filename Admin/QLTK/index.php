@@ -14,57 +14,64 @@
 
   <!-- Modal Sửa -->
   <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg"> <!-- Tăng kích thước modal -->
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editModalLabel">Chỉnh Sửa Tài Khoản</h5>
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title fw-bold" id="editModalLabel">Chỉnh Sửa Tài Khoản</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <form id="editForm" action="edit.php" method="POST" enctype="multipart/form-data">
-          <div class="modal-body">
+          <div class="modal-body container">
             <input type="hidden" name="id" id="edit-id">
 
-            <!-- Avatar  -->
+            <!-- Avatar -->
             <div class="mb-3 text-center">
-              <label class="form-label d-block">Ảnh Đại Diện</label>
-              <img id="edit-avatar-preview" src="" class="img-thumbnail rounded-circle mb-2" width="100" height="100">
+              <label class="form-label fw-bold">Ảnh Đại Diện</label>
+              <div class="d-flex justify-content-center">
+                <img id="edit-avatar-preview" src="" class="img-thumbnail rounded-circle shadow mb-2" width="120"
+                  height="120">
+              </div>
               <input type="file" class="form-control" name="avatar" id="edit-avatar">
             </div>
 
-            <div class="mb-3">
-              <label class="form-label">Tài Khoản</label>
-              <input type="text" class="form-control" name="username" id="edit-username" required>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Tài Khoản</label>
+                <input type="text" class="form-control" name="username" id="edit-username" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Mật Khẩu Mới</label>
+                <input type="password" class="form-control" name="password" id="edit-password">
+              </div>
             </div>
 
-            <div class="mb-3">
-              <label class="form-label">Mật Khẩu Mới</label>
-              <input type="password" class="form-control" name="password" id="edit-password">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Họ Tên</label>
+                <input type="text" class="form-control" name="hoten" id="edit-hoten" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Email</label>
+                <input type="email" class="form-control" name="email" id="edit-email" required>
+              </div>
             </div>
 
-            <div class="mb-3">
-              <label class="form-label">Họ Tên</label>
-              <input type="text" class="form-control" name="hoten" id="edit-hoten" required>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Email</label>
-              <input type="email" class="form-control" name="email" id="edit-email" required>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Số Điện Thoại</label>
-              <input type="text" class="form-control" name="sdt" id="edit-sdt" required>
-            </div>
-
-            <!-- Chọn Vai Trò -->
-            <div class="mb-3">
-              <label class="form-label">Vai Trò</label>
-              <select class="form-control" name="quyen" id="edit-quyen">
-                <option value="1">Quản trị viên</option>
-                <option value="2">Người dùng</option>
-              </select>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Số Điện Thoại</label>
+                <input type="text" class="form-control" name="sdt" id="edit-sdt" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Vai Trò</label>
+                <select class="form-select" name="quyen" id="edit-quyen">
+                  <option value="1">Quản trị viên</option>
+                  <option value="2">Người dùng</option>
+                </select>
+              </div>
             </div>
           </div>
 
-          <div class="modal-footer">
+          <div class="modal-footer bg-light">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
             <button type="submit" class="btn btn-primary">Lưu</button>
           </div>
@@ -77,14 +84,14 @@
   <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="deleteModalLabel">Xác Nhận Xóa</h5>
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title fw-bold" id="deleteModalLabel">Xác Nhận Xóa</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-          Bạn có chắc chắn muốn xóa tài khoản này?
+        <div class="modal-body text-center">
+          <p class="fs-5 text-danger">Bạn có chắc chắn muốn xóa tài khoản này?</p>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer bg-light">
           <form id="deleteForm" action="delete.php" method="POST">
             <input type="hidden" name="id" id="delete-id">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
@@ -94,6 +101,7 @@
       </div>
     </div>
   </div>
+
 
   <main id="main" class="main">
     <div class="pagetitle">
@@ -140,7 +148,7 @@
                       echo "<tr>
                                 <td>{$row['IDNGUOIDUNG']}</td>
                                 <td>
-                                  <img src='assets/img/avartar/" . $row['IDNGUOIDUNG'] . "/" . $row['AVATAR'] . "' alt='Avatar'
+                                  <img src='assets/img/avatar/" . $row['IDNGUOIDUNG'] . "/" . $row['AVATAR'] . "' alt='Avatar'
                                   class='img-thumbnail rounded-circle' width='50' height='50'>
                                 </td>
                                 <td>{$row['USERNAME']}</td>
@@ -226,7 +234,7 @@
 
         // Cập nhật ảnh đại diện
         if (avatar) {
-          $("#edit-avatar-preview").attr("src", `assets/img/avartar/${id}/${avatar}`);
+          $("#edit-avatar-preview").attr("src", `assets/img/avatar/${id}/${avatar}`);
         } else {
           $("#edit-avatar-preview").attr("src", "assets/img/hero-logo.png");
         }
