@@ -35,6 +35,12 @@
               <label class="form-label">Tài Khoản</label>
               <input type="text" class="form-control" name="username" id="edit-username" required>
             </div>
+
+            <div class="mb-3">
+              <label class="form-label">Mật Khẩu Mới</label>
+              <input type="password" class="form-control" name="password" id="edit-password">
+            </div>
+
             <div class="mb-3">
               <label class="form-label">Họ Tên</label>
               <input type="text" class="form-control" name="hoten" id="edit-hoten" required>
@@ -54,7 +60,6 @@
               <select class="form-control" name="quyen" id="edit-quyen">
                 <option value="1">Quản trị viên</option>
                 <option value="2">Người dùng</option>
-                <option value="3">Khách</option>
               </select>
             </div>
           </div>
@@ -151,7 +156,8 @@
                                       data-ho='{$row['HO']}' 
                                       data-ten='{$row['TEN']}' 
                                       data-email='{$row['EMAIL']}' 
-                                      data-sdt='{$row['SDT']}' 
+                                      data-sdt='{$row['SDT']}'
+                                      data-idquyen='{$row['IDQUYEN']}' 
                                       data-quyen='{$row['TENQUYEN']}'>Sửa</button>
 
                                     <button class='btn btn-danger btn-sm delete-btn' 
@@ -160,7 +166,7 @@
                               </tr>";
                     }
                   } else {
-                    echo "<tr><td colspan='5' class='text-center'>Không có dữ liệu</td></tr>";
+                    echo "<tr><td colspan='8' class='text-center'>Không có dữ liệu</td></tr>";
                   }
                   ?>
                 </tbody>
@@ -207,6 +213,7 @@
         let ten = $(this).data("ten");
         let email = $(this).data("email");
         let sdt = $(this).data("sdt");
+        let idQuyen = $(this).data("idquyen");
         let quyen = $(this).data("quyen");
         var avatar = $(this).data("avatar");
 
@@ -215,7 +222,7 @@
         $("#edit-hoten").val(ho + " " + ten);
         $("#edit-email").val(email);
         $("#edit-sdt").val(sdt);
-        $("#edit-quyen").val(quyen);
+        $("#edit-quyen").val(idQuyen);
 
         // Cập nhật ảnh đại diện
         if (avatar) {
