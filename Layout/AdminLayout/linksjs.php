@@ -18,3 +18,20 @@
 
 <!-- Template Main JS File -->
 <script src="assets/js/main.js"></script>
+
+<script>
+        $(document).ready(function() {
+                // Lấy đường dẫn hiện tại của trang
+                let currentPath = window.location.pathname;
+
+                // Lặp qua tất cả các thẻ <a> trong #sidebar
+                $('#sidebar a').each(function() {
+                        let link = $(this).attr('href');
+
+                        // Nếu đường dẫn trùng khớp với trang hiện tại, xóa class 'collapsed' khỏi thẻ <a>
+                        if (link === currentPath) {
+                                $(this).removeClass('collapsed');
+                        }
+                });
+        });
+</script>

@@ -8,7 +8,9 @@ $Register = '/login/register.php';
 $Forgot = '/login/forgot-password.php';
 $Logout = '/login/logout.php';
 $UserInfo = '/user/updateInfo.php';
+
 $AdminQLTK = '/Admin/QLTK/index.php';
+$AdminQLCH = '/Admin/QLCH/index.php';
 
 
 
