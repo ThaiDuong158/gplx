@@ -11,7 +11,7 @@ $UserInfo = '/user/updateInfo.php';
 
 $AdminQLTK = '/Admin/QLTK/index.php';
 $AdminQLCH = '/Admin/QLCH/index.php';
-
+$AdminQLDT = '/Admin/QLDT/index.php';
 
 
 $Address = '73 Nguyễn Huệ, Phường 2, Vĩnh Long, Việt Nam';

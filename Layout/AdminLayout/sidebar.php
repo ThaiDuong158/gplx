@@ -17,6 +17,13 @@
     </li>
 
     <li class="nav-item">
+      <a class="nav-link collapsed" href=<?php echo $AdminQLDT; ?>>
+        <i class="bi bi-question-circle"></i>
+        <span>Đề Thi</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
         <i class="bi bi-menu-button-wide"></i><span>Components</span><i class="bi bi-chevron-down ms-auto"></i>
       </a>
