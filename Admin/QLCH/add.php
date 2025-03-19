@@ -8,6 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $c = $_POST['c'];
     $d = $_POST['d'];
     $dapan = $_POST['dapan'];
+    $loaicauhoi = $_POST['loaicauhoi']; // Lấy giá trị loại câu hỏi
 
     // Thư mục lưu ảnh
     $targetDir = "../../assets/img/cauhoi/";
@@ -71,10 +72,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($c_img["success"]) $c .= " " . $c_img["success"];
     if ($d_img["success"]) $d .= " " . $d_img["success"];
 
-    // Thêm câu hỏi vào database
-    $sql = "INSERT INTO cauhoi (CAUHOI, A, B, C, D, DAPAN) VALUES (?, ?, ?, ?, ?, ?)";
+    // Thêm câu hỏi vào database (có LOAICAUHOI)
+    $sql = "INSERT INTO cauhoi (CAUHOI, A, B, C, D, DAPAN, LOAICAUHOI) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssssss", $cauhoi, $a, $b, $c, $d, $dapan);
+    $stmt->bind_param("sssssss", $cauhoi, $a, $b, $c, $d, $dapan, $loaicauhoi);
 
     if ($stmt->execute()) {
         echo json_encode(["status" => "success", "message" => "Thêm câu hỏi thành công"]);

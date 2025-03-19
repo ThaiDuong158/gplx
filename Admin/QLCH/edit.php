@@ -9,6 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $c = $_POST['c'];
     $d = $_POST['d'];
     $dapan = $_POST['dapan'];
+    $loaicauhoi = $_POST['loaicauhoi']; // Lấy giá trị loại câu hỏi
 
     // Thư mục lưu ảnh
     $targetDir = "../../assets/img/cauhoi/";
@@ -75,10 +76,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($d_img) $d .= " @img:" . $d_img;
 
     // Cập nhật dữ liệu vào database
-    $sql = "UPDATE cauhoi SET CAUHOI = ?, A = ?, B = ?, C = ?, D = ?, DAPAN = ? WHERE IDCAUHOI = ?";
+    $sql = "UPDATE cauhoi SET CAUHOI = ?, A = ?, B = ?, C = ?, D = ?, DAPAN = ?, LOAICAUHOI = ? WHERE IDCAUHOI = ?";
     
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssssssi", $cauhoi, $a, $b, $c, $d, $dapan, $id);
+    $stmt->bind_param("sssssssi", $cauhoi, $a, $b, $c, $d, $dapan, $loaicauhoi, $id);
 
     if ($stmt->execute()) {
         echo "<script>alert('Cập nhật thành công!'); window.location.href='index.php';</script>";

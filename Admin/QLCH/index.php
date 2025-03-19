@@ -23,6 +23,22 @@
         <div class="modal-body">
           <form id="addQuestionForm" action="add.php" method="POST" enctype="multipart/form-data">
             <div class="mb-3">
+              <label for="loaicauhoi" class="form-label">Loại Câu Hỏi</label>
+              <select class="form-select" id="loaicauhoi" name="loaicauhoi">
+                <option value="Khái niệm">Khái niệm</option>
+                <option value="Tình huống mất an toàn giao thông nghiêm trọng">Tình huống mất an toàn giao thông nghiêm
+                  trọng</option>
+                <option value="Quy tắc giao thông">Quy tắc giao thông</option>
+                <option value="Tốc độ, khoảng cách">Tốc độ, khoảng cách</option>
+                <option value="Văn hóa giao thông và đạo đức người lái xe">Văn hóa giao thông và đạo đức người lái xe
+                </option>
+                <option value="Kỹ thuật lái xe hoặc cấu tạo sửa chữa">Kỹ thuật lái xe hoặc cấu tạo sửa chữa</option>
+                <option value="Hệ thống biển báo đường bộ">Hệ thống biển báo đường bộ</option>
+                <option value="Giải các thế sa hình và kỹ năng xử lý tình huống giao thông">Giải các thế sa hình và kỹ
+                  năng xử lý tình huống giao thông</option>
+              </select>
+            </div>
+            <div class="mb-3">
               <label for="cauhoi" class="form-label">Câu Hỏi</label>
               <textarea class="form-control" id="cauhoi" name="cauhoi"></textarea>
               <input type="file" class="form-control mt-2" id="cauhoi-img" name="cauhoi_img">
@@ -78,6 +94,22 @@
         <div class="modal-body">
           <form id="editQuestionForm" action="edit.php" method="POST" enctype="multipart/form-data">
             <input type="hidden" id="edit-id" name="id">
+            <div class="mb-3">
+              <label for="loaicauhoi" class="form-label">Loại Câu Hỏi</label>
+              <select class="form-select" id="loaicauhoi" name="loaicauhoi">
+                <option value="Khái niệm">Khái niệm</option>
+                <option value="Tình huống mất an toàn giao thông nghiêm trọng">Tình huống mất an toàn giao thông nghiêm
+                  trọng</option>
+                <option value="Quy tắc giao thông">Quy tắc giao thông</option>
+                <option value="Tốc độ, khoảng cách">Tốc độ, khoảng cách</option>
+                <option value="Văn hóa giao thông và đạo đức người lái xe">Văn hóa giao thông và đạo đức người lái xe
+                </option>
+                <option value="Kỹ thuật lái xe hoặc cấu tạo sửa chữa">Kỹ thuật lái xe hoặc cấu tạo sửa chữa</option>
+                <option value="Hệ thống biển báo đường bộ">Hệ thống biển báo đường bộ</option>
+                <option value="Giải các thế sa hình và kỹ năng xử lý tình huống giao thông">Giải các thế sa hình và kỹ
+                  năng xử lý tình huống giao thông</option>
+              </select>
+            </div>
             <div class="mb-3">
               <label for="edit-cauhoi" class="form-label">Câu Hỏi</label>
               <textarea class="form-control" id="edit-cauhoi" name="cauhoi" required></textarea>
@@ -160,13 +192,22 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Danh Sách Câu Hỏi</h5>
-              <button class="btn btn-success add-btn">Thêm Câu Hỏi</button>
+              <h5 class="card-title mb-0">Danh Sách Câu Hỏi</h5>
+              <button class="btn btn-success add-btn"><i class="fas fa-plus"></i> Thêm Câu Hỏi</button>
+              <div class="row mb-3 mt-3">
+                <div class="col-md-6">
+                  <label for="filterLoaiCauHoi" class="form-label fw-bold">Lọc loại câu hỏi:</label>
+                  <select id="filterLoaiCauHoi" class="form-select">
+                    <option value="">Tất cả</option>
+                  </select>
+                </div>
+              </div>
               <!-- Bảng DataTable -->
               <table id="accountTable" class="display" style="width:100%">
                 <thead>
                   <tr>
                     <th>ID</th>
+                    <th>Loại Câu Hỏi</th>
                     <th>Câu Hỏi</th>
                     <th>A</th>
                     <th>B</th>
@@ -194,6 +235,7 @@
                       echo "
                       <tr>
                         <td>{$row['IDCAUHOI']}</td>
+                        <td>{$row['LOAICAUHOI']}</td>
                         <td>" . formatData($row['CAUHOI']) . "</td>
                         <td>" . formatData($row['A']) . "</td>
                         <td>" . formatData($row['B']) . "</td>
@@ -203,6 +245,7 @@
                         <td>
                             <button class='btn btn-primary btn-sm edit-btn' 
                               data-id='{$row['IDCAUHOI']}' 
+                              data-loaicauhoi='{$row['LOAICAUHOI']}' 
                               data-cauhoi='{$row['CAUHOI']}' 
                               data-a='{$row['A']}' 
                               data-b='{$row['B']}' 
@@ -239,7 +282,7 @@
       $('#accountTable').DataTable({
         "columnDefs": [
           {
-            "targets": [1, 2, 3, 4, 5],
+            "targets": [2, 3, 4, 5, 6],
             "render": function (data, type, row) {
               if (data.includes('assets/img/cauhoi')) {
                 return '<img src="' + data + '" alt="Image" width="50">';
@@ -319,6 +362,30 @@
         });
       });
     });
+  </script>
+
+  <script>
+    $(document).ready(function () {
+      var table = $('#accountTable').DataTable();
+
+      // Lấy danh sách loại câu hỏi từ bảng và thêm vào dropdown
+      var loaiCauHoiSet = new Set();
+      $('#accountTable tbody tr').each(function () {
+        var loaiCauHoi = $(this).find('td:nth-child(2)').text().trim();
+        if (loaiCauHoi) loaiCauHoiSet.add(loaiCauHoi);
+      });
+
+      loaiCauHoiSet.forEach(function (value) {
+        $('#filterLoaiCauHoi').append(`<option value="${value}">${value}</option>`);
+      });
+
+      // Xử lý sự kiện thay đổi dropdown để lọc dữ liệu
+      $('#filterLoaiCauHoi').on('change', function () {
+        var selectedValue = $(this).val();
+        table.column(1).search(selectedValue).draw();
+      });
+    });
+
   </script>
 
 

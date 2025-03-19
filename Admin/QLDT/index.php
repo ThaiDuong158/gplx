@@ -153,6 +153,11 @@
                         <td>{$row['SoLuongCauHoi']}/25</td>
                         <td>{$row['TRANGTHAI']}</td>
                         <td>
+                            <button class='btn btn-success btn-sm add-question-btn' 
+                                data-id='{$row['IDBAITHI']}'>
+                                <i class='fas fa-plus'></i> Thêm Câu Hỏi
+                            </button>
+
                             <button class='btn btn-primary btn-sm edit-btn' 
                               data-id='{$row['IDBAITHI']}' 
                               data-tenbaithi='{$row['TenBaiThi']}' 
@@ -231,6 +236,14 @@
         $('#deleteExamModal').modal('show');
       });
     });
+
+    $(document).ready(function () {
+      $(".add-question-btn").click(function () {
+        let baithiId = $(this).data("id");
+        window.location.href = "them_cau_hoi.php?id=" + baithiId;
+      });
+    });
+
   </script>
 
 
