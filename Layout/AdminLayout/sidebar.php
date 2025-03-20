@@ -18,8 +18,15 @@
 
     <li class="nav-item">
       <a class="nav-link collapsed" href=<?php echo $AdminQLDT; ?>>
-        <i class="bi bi-question-circle"></i>
+        <i class="bi bi-file-earmark-text"></i>
         <span>Đề Thi</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href=<?php echo $AdminQLLT; ?>>
+        <i class="bi bi-file-earmark-text"></i>
+        <span>Lịch Thi</span>
       </a>
     </li>
 
