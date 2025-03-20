@@ -31,7 +31,7 @@
                 $sql = "SELECT IDBAITHI, TenBaiThi FROM gplx.baithi WHERE TRANGTHAI = 'Hoạt động'";
                 $result = $conn->query($sql);
                 while ($row = $result->fetch_assoc()) {
-                  echo "<option value='{$row['IDBAITHI']}'>{$row['TenBaiThi']}</option>";
+                  echo "<option value='{$row['IDBAITHI']}'>{$row['IDBAITHI']} - {$row['TenBaiThi']}</option>";
                 }
                 ?>
               </select>
@@ -40,6 +40,11 @@
             <div class="mb-3">
               <label for="add-ngaythi" class="form-label">Ngày Thi</label>
               <input type="date" class="form-control" id="add-ngaythi" name="ngaythi" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="add-thoigian" class="form-label">Thời Gian</label>
+              <input type="time" class="form-control" id="add-thoigian" name="thoigian" required>
             </div>
 
             <div class="mb-3">
@@ -52,6 +57,15 @@
               <input type="number" class="form-control" id="add-soluong" name="soluong" required>
             </div>
 
+            <div class="mb-3">
+              <label for="add-trangthai" class="form-label">Trạng Thái</label>
+              <select class="form-select" id="add-trangthai" name="trangthai" required>
+                <option value="Hoạt động">Hoạt động</option>
+                <option value="Đã đóng">Đã đóng</option>
+                <option value="Hủy bỏ">Hủy bỏ</option>
+              </select>
+            </div>
+
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
               <button type="submit" class="btn btn-success"><i class="bi bi-save"></i> Thêm</button>
@@ -61,7 +75,6 @@
       </div>
     </div>
   </div>
-
 
   <!-- Modal Sửa Lịch Thi -->
   <div class="modal fade" id="editScheduleModal" tabindex="-1" aria-labelledby="editScheduleLabel" aria-hidden="true">
@@ -96,6 +109,11 @@
             </div>
 
             <div class="mb-3">
+              <label for="edit-thoigian" class="form-label">Thời Gian</label>
+              <input type="time" class="form-control" id="edit-thoigian" name="thoigian" required>
+            </div>
+
+            <div class="mb-3">
               <label for="edit-diadiemthi" class="form-label">Địa Điểm Thi</label>
               <input type="text" class="form-control" id="edit-diadiemthi" name="diadiemthi" required>
             </div>
@@ -103,6 +121,15 @@
             <div class="mb-3">
               <label for="edit-soluong" class="form-label">Số Lượng</label>
               <input type="number" class="form-control" id="edit-soluong" name="soluong" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="edit-trangthai" class="form-label">Trạng Thái</label>
+              <select class="form-select" id="edit-trangthai" name="trangthai" required>
+                <option value="Hoạt động">Hoạt động</option>
+                <option value="Đã đóng">Đã đóng</option>
+                <option value="Hủy bỏ">Hủy bỏ</option>
+              </select>
             </div>
 
             <div class="modal-footer">
@@ -141,11 +168,11 @@
 
   <main id="main" class="main">
     <div class="pagetitle">
-      <h1>Quản Lý Câu Hỏi</h1>
+      <h1>Quản Lý Lịch Thi</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href=<?php echo $Home ?>>Trang Chủ</a></li>
-          <li class="breadcrumb-item active">Quản Lý Câu Hỏi</li>
+          <li class="breadcrumb-item active">Quản Lý Lịch Thi</li>
         </ol>
       </nav>
     </div>
@@ -155,7 +182,7 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title mb-0">Danh Sách Câu Hỏi</h5>
+              <h5 class="card-title mb-0">Danh Sách Lịch Thi</h5>
               <button class="btn btn-success add-btn"><i class="fas fa-plus"></i> Thêm Lịch Thi</button>
               <!-- Bảng DataTable -->
               <table id="scheduleTable" class="display" style="width:100%">
@@ -164,8 +191,10 @@
                     <th>ID</th>
                     <th>ID Bài Thi</th>
                     <th>Ngày Thi</th>
+                    <th>Thời Gian</th>
                     <th>Địa Điểm Thi</th>
                     <th>Số Lượng</th>
+                    <th>Trạng Thái</th>
                     <th>Hành Động</th>
                   </tr>
                 </thead>
@@ -177,34 +206,36 @@
                   if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                       echo "
-                      <tr>
-                          <td>{$row['IDLICHTHI']}</td>
-                          <td>{$row['IDBAITHI']}</td>
-                          <td>{$row['NGAYTHI']}</td>
-                          <td>{$row['DIADIEMTHI']}</td>
-                          <td>{$row['SOLUONG']}</td>
-                          <td>
-                              <button class='btn btn-primary btn-sm edit-btn' 
-                                      data-id='{$row['IDLICHTHI']}' 
-                                      data-idbaithi='{$row['IDBAITHI']}' 
-                                      data-ngaythi='{$row['NGAYTHI']}' 
-                                      data-diadiemthi='{$row['DIADIEMTHI']}' 
-                                      data-soluong='{$row['SOLUONG']}'>Sửa</button>
+                        <tr>
+                            <td>{$row['IDLICHTHI']}</td>
+                            <td>{$row['IDBAITHI']}</td>
+                            <td>{$row['NGAYTHI']}</td>
+                            <td>{$row['THOIGIAN']}</td>
+                            <td>{$row['DIADIEMTHI']}</td>
+                            <td>{$row['SOLUONG']}</td>
+                            <td>{$row['TRANGTHAI']}</td>
+                            <td>
+                                <button class='btn btn-primary btn-sm edit-btn' 
+                                        data-id='{$row['IDLICHTHI']}' 
+                                        data-idbaithi='{$row['IDBAITHI']}' 
+                                        data-ngaythi='{$row['NGAYTHI']}' 
+                                        data-thoigian='{$row['THOIGIAN']}'
+                                        data-diadiemthi='{$row['DIADIEMTHI']}' 
+                                        data-soluong='{$row['SOLUONG']}'
+                                        data-trangthai='{$row['TRANGTHAI']}'>Sửa</button>
 
-                              <button class='btn btn-danger btn-sm delete-btn' 
-                                      data-id='{$row['IDLICHTHI']}'>Xóa</button>
-                          </td>
-                      </tr>
-                      ";
+                                <button class='btn btn-danger btn-sm delete-btn' 
+                                        data-id='{$row['IDLICHTHI']}'>Xóa</button>
+                            </td>
+                        </tr>
+                        ";
                     }
                   } else {
-                    echo "<tr><td colspan='6' class='text-center'>Không có dữ liệu</td></tr>";
+                    echo "<tr><td colspan='8' class='text-center'>Không có dữ liệu</td></tr>";
                   }
                   ?>
                 </tbody>
               </table>
-
-
             </div>
           </div>
         </div>
@@ -278,14 +309,18 @@
         let id = $(this).data("id");
         let idbaithi = $(this).data("idbaithi");
         let ngaythi = $(this).data("ngaythi");
+        let thoigian = $(this).data("thoigian");
         let diadiemthi = $(this).data("diadiemthi");
         let soluong = $(this).data("soluong");
+        let trangthai = $(this).data("trangthai");
 
         $("#edit-id").val(id);
-        $("#edit-idbaithi").val(idbaithi); // Chọn đúng bài thi
+        $("#edit-idbaithi").val(idbaithi);
         $("#edit-ngaythi").val(ngaythi);
+        $("#edit-thoigian").val(thoigian);
         $("#edit-diadiemthi").val(diadiemthi);
         $("#edit-soluong").val(soluong);
+        $("#edit-trangthai").val(trangthai);
 
         $("#editScheduleModal").modal("show");
       });

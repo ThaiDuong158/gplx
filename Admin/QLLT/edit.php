@@ -5,8 +5,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = intval($_POST['id']);
     $idbaithi = intval($_POST['idbaithi']);
     $ngaythi = $_POST['ngaythi'];
+    $thoigian = $_POST['thoigian'];
     $diadiemthi = $_POST['diadiemthi'];
     $soluong = intval($_POST['soluong']);
+    $trangthai = $_POST['trangthai'];
 
     // Kiểm tra xem bài thi có hợp lệ không (phải là "Hoạt động")
     $check_sql = "SELECT * FROM gplx.baithi WHERE IDBAITHI = ? AND TRANGTHAI = 'Hoạt động'";
@@ -20,15 +22,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    // Cập nhật lịch thi
-    $sql = "UPDATE gplx.lichthi SET IDBAITHI = ?, NGAYTHI = ?, DIADIEMTHI = ?, SOLUONG = ? WHERE IDLICHTHI = ?";
+    // Cập nhật lịch thi với trường mới
+    $sql = "UPDATE gplx.lichthi 
+            SET IDBAITHI = ?, NGAYTHI = ?, THOIGIAN = ?, DIADIEMTHI = ?, SOLUONG = ?, TRANGTHAI = ? 
+            WHERE IDLICHTHI = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("issii", $idbaithi, $ngaythi, $diadiemthi, $soluong, $id);
+    $stmt->bind_param("isssisi", $idbaithi, $ngaythi, $thoigian, $diadiemthi, $soluong, $trangthai, $id);
 
     if ($stmt->execute()) {
-        echo json_encode(["status" => "success", "message" => "Cập nhật thành công!"]);
+        echo json_encode(["status" => "success", "message" => "Cập nhật lịch thi thành công!"]);
     } else {
-        echo json_encode(["status" => "error", "message" => "Lỗi khi cập nhật!"]);
+        echo json_encode(["status" => "error", "message" => "Lỗi khi cập nhật lịch thi!"]);
     }
 
     $stmt->close();
