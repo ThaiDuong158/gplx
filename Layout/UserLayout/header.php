@@ -9,7 +9,7 @@
   .header-social-links .dropdown ul a:hover,
   .header-social-links .dropdown ul .active:hover,
   .header-social-links .dropdown ul li:hover>a {
-    color: var(--nav-dropdown-hover-color)!important;
+    color: var(--nav-dropdown-hover-color) !important;
   }
 </style>
 
@@ -22,10 +22,11 @@
 
     <nav id="navmenu" class="navmenu">
       <ul>
-        <li><a href="#hero" class="active">TRANG CHỦ</a></li>
-        <li><a href="#about">VỀ CHÚNG TÔI</a></li>
-        <li><a href="#services">DỊCH VỤ</a></li>
-        <li><a href="#contact">LIÊN HỆ</a></li>
+        <li><a href=<?php echo $AdminQLTK ?>>ADMIN</a></li>
+        <li><a href=<?php echo $AdminQLTK ?>>ĐĂNG KÝ THI</a></li>
+        <li><a href=<?php echo $AdminQLTK ?>>THANH TOÁN</a></li>
+        <li><a href=<?php echo $AdminQLTK ?>>THI LÝ THUYẾT</a></li>
+        <li><a href=<?php echo $AdminQLTK ?>>KẾT QUẢ</a></li>
       </ul>
       <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
     </nav>
@@ -60,8 +61,8 @@
                   <span>Dropdown</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                  <li><a class="dropdown-item" href='.$UserInfo.'>Cập Nhật Thông Tin</a></li>
-                  <li><a class="dropdown-item" href='.$Logout.'>Đăng Xuất</a></li>
+                  <li><a class="dropdown-item" href=' . $UserInfo . '>Cập Nhật Thông Tin</a></li>
+                  <li><a class="dropdown-item" href=' . $Logout . '>Đăng Xuất</a></li>
                 </ul>
               </div>
             </li>
