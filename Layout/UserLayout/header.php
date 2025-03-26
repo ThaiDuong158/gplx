@@ -13,7 +13,7 @@
   }
 </style>
 
-<header id="header" class="header d-flex align-items-center fixed-top">
+<header id="header" class="header d-flex align-items-center fixed-top" style="--background-color:rgba(0, 0, 0, 0.8)!important;">
   <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
     <a href=<?PHP echo $Home ?> class="logo d-flex align-items-center me-auto me-xl-0">
       <img src="assets/img/logo/favicon-32x32.png" alt="">

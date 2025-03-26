@@ -134,7 +134,7 @@
             <div class="service-item d-flex">
               <div class="icon flex-shrink-0"><i class="bi bi-calendar4-week"></i></div>
               <div>
-                <h4 class="title"><a href="TaiDeThi/index.php" class="stretched-link">Tải Đề Lý Thuyết</a></h4>
+                <h4 class="title"><a href=<?php echo $TaiDeThi?> class="stretched-link">Tải Đề Lý Thuyết</a></h4>
                 <p class="description">Cung cấp tài liệu ôn tập lý thuyết chính xác, giúp học viên nắm vững kiến thức
                   trước khi thi.</p>
               </div>
@@ -146,7 +146,7 @@
               <div class="icon flex-shrink-0"><i class="bi bi-bar-chart"></i></div>
               <div>
                 <h4 class="title">
-                  <a href="service-details.html" class="stretched-link">Thi Thử Lý Thuyết</a>
+                  <a href=<?php echo $ThiThu?> class="stretched-link">Thi Thử Lý Thuyết</a>
                 </h4>
                 <p class="description">Luyện tập với các bài thi thử theo chuẩn Bộ Giao thông Vận tải, nâng cao khả năng
                   làm bài.</p>

@@ -8,6 +8,9 @@ $Register = '/login/register.php';
 $Forgot = '/login/forgot-password.php';
 $Logout = '/login/logout.php';
 $UserInfo = '/user/updateInfo.php';
+$TaiDeThi = '/TaiDeThi/index.php';
+$ThiThu = '/ThiThu/index.php';
+$Thi = '/Thi/index.php';
 
 $AdminQLTK = '/Admin/QLTK/index.php';
 $AdminQLCH = '/Admin/QLCH/index.php';
@@ -22,6 +25,7 @@ $Email = 'spktvl@vlute.edu.vn';
 // Danh sách trang ngoại lệ (không cần đăng nhập)
 $allowed_pages = [
     $Home,
+    $TaiDeThi,
     $Login,
     $Register,
     $Forgot,
