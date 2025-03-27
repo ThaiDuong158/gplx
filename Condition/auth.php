@@ -17,6 +17,11 @@ $AdminQLCH = '/Admin/QLCH/index.php';
 $AdminQLDT = '/Admin/QLDT/index.php';
 $AdminQLLT = '/Admin/QLLT/index.php';
 
+// Handle
+$HandleLogin = '/login/handleLogin.php';
+$HandleRegister = '/login/handleRegister.php';
+$HandleForgot = '/login/handleForgot.php';
+
 
 $Address = '73 Nguyễn Huệ, Phường 2, Vĩnh Long, Việt Nam';
 $Phone = '(+84) 027 03822 141';
@@ -27,8 +32,11 @@ $allowed_pages = [
     $Home,
     $TaiDeThi,
     $Login,
+    $HandleLogin,
     $Register,
+    $HandleRegister,
     $Forgot,
+    $HandleForgot,
 ];
 
 // Lấy đường dẫn của trang hiện tại (tính từ thư mục gốc)
@@ -37,8 +45,8 @@ $current_page = $_SERVER['PHP_SELF'];
 // Nếu trang hiện tại không nằm trong danh sách ngoại lệ và chưa đăng nhập
 if (!in_array($current_page, $allowed_pages) && !isset($_SESSION['user_id'])) {
     // Chuyển hướng đến trang đăng nhập
-    // header("Location: $Login");
-    // exit();
+    header("Location: $Login");
+    exit();
 }
 
 // Kết nối MySQL

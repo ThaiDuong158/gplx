@@ -6,6 +6,8 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
+  <title>Đăng Nhập - Hệ Thống GPLX</title>
+
   <?php include '../Layout/AdminLayout/linkscss.php' ?>
 
 </head>
@@ -21,22 +23,20 @@
             <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
               <div class="d-flex justify-content-center py-4">
-                <a href=<?php echo $Home; ?> class="logo d-flex align-items-center w-auto">
+                <a href="<?php echo $Home; ?>" class="logo d-flex align-items-center w-auto">
                   <img src="assets/img/logo.png" alt="">
-                  <span class="d-none d-lg-block">NiceAdmin</span>
+                  <span class="d-none d-lg-block">GPLX System</span>
                 </a>
               </div><!-- Kết thúc Logo -->
 
               <div class="card mb-3">
-
                 <div class="card-body">
-
                   <div class="pt-4 pb-2">
                     <h5 class="card-title text-center pb-0 fs-4">Đăng Nhập</h5>
                     <p class="text-center small">Nhập tên đăng nhập & mật khẩu để đăng nhập</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate>
+                  <form class="row g-3 needs-validation" action="handleLogin.php" method="POST" novalidate>
 
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Tên đăng nhập</label>
@@ -59,15 +59,15 @@
                         <label class="form-check-label" for="rememberMe">Ghi nhớ tôi</label>
                       </div>
                     </div>
+
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit">Đăng nhập</button>
                     </div>
+
                     <div class="col-12">
                       <p class="small mb-0">
                         Chưa có tài khoản?
-                        <a href=<?php echo $Register; ?>>
-                          Tạo tài khoản
-                        </a>
+                        <a href="<?php echo $Register; ?>">Tạo tài khoản</a>
                       </p>
                     </div>
                   </form>

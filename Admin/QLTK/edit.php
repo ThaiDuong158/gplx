@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Mã hóa mật khẩu nếu có thay đổi
     if (!empty($password)) {
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $hashed_password = password_hash($password, PASSWORD_BCRYPT);
     }
 
     // Xử lý ảnh đại diện

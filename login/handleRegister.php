@@ -1,55 +1,37 @@
 <?php
+include '../Condition/auth.php'; 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = trim($_POST["name"]);
-    $email = trim($_POST["email"]);
-    $username = trim($_POST["username"]);
-    $password = trim($_POST["password"]);
+    $ho = $_POST['ho'];
+    $ten = $_POST['ten'];
+    $email = $_POST['email'];
+    $sdt = $_POST['sdt'];
+    $username = $_POST['username'];
+    $password = password_hash($_POST['password'], PASSWORD_BCRYPT); // Mã hóa mật khẩu
+    $idQuyen = 2; // Quyền mặc định (VD: 2 là user thông thường)
 
-    // Kiểm tra dữ liệu nhập vào có rỗng không
-    if (empty($name) || empty($email) || empty($username) || empty($password)) {
-        $_SESSION['error'] = "Vui lòng nhập đầy đủ thông tin!";
-        header("Location: register.php");
-        exit();
-    }
-
-    // Kiểm tra định dạng email
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $_SESSION['error'] = "Email không hợp lệ!";
-        header("Location: register.php");
-        exit();
-    }
-
-    // Mã hóa mật khẩu trước khi lưu vào database
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-    // Kiểm tra xem email hoặc username đã tồn tại chưa
-    $sql_check = "SELECT * FROM nguoidung WHERE EMAIL = ? OR USERNAME = ?";
-    $stmt = $conn->prepare($sql_check);
-    $stmt->bind_param("ss", $email, $username);
+    // Kiểm tra username hoặc email đã tồn tại chưa
+    $checkQuery = "SELECT * FROM nguoidung WHERE USERNAME = ? OR EMAIL = ?";
+    $stmt = $conn->prepare($checkQuery);
+    $stmt->bind_param("ss", $username, $email);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        $_SESSION['error'] = "Email hoặc tên đăng nhập đã tồn tại!";
-        header("Location: register.php");
-        exit();
-    }
-
-    // Thêm người dùng vào database
-    $sql = "INSERT INTO nguoidung (HOTEN, EMAIL, USERNAME, PASSWORD, IDQUYEN) VALUES (?, ?, ?, ?, 2)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssss", $name, $email, $username, $hashed_password);
-
-    if ($stmt->execute()) {
-        $_SESSION['success'] = "Đăng ký thành công! Vui lòng đăng nhập.";
-        header("Location: login.php");
+        echo "<script>alert('Tên đăng nhập hoặc Email đã tồn tại!'); window.location.href = 'register.php';</script>";
     } else {
-        $_SESSION['error'] = "Đã xảy ra lỗi, vui lòng thử lại!";
-        header("Location: register.php");
+        // Thêm tài khoản mới vào database
+        $query = "INSERT INTO nguoidung (IDQUYEN, USERNAME, PASSWORD, EMAIL, SDT, HO, TEN) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("issssss", $idQuyen, $username, $password, $email, $sdt, $ho, $ten);
+        
+        if ($stmt->execute()) {
+            echo "<script>alert('Đăng ký thành công!'); window.location.href = 'login.php';</script>";
+        } else {
+            echo "<script>alert('Có lỗi xảy ra, vui lòng thử lại!'); window.location.href = 'register.php';</script>";
+        }
     }
-
     $stmt->close();
-    $conn->close();
 }
+$conn->close();
 ?>
